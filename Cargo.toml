@@ -1,6 +1,6 @@
 [package]
 name = "nickel_cors"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Hui Tang <duriantang@gmail.com>"]
 description = "CORS Middleware for nickel.rs"
 keywords = ["nickel", "middleware", "web"]
