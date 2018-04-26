@@ -1,0 +1,9 @@
+language: rust
+
+sudo: required
+
+rust:
+  - stable
+
+scripts:
+  - cargo test -- --test-threads=1
