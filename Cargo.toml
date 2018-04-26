@@ -11,3 +11,6 @@ readme = "README.md"
 
 [dependencies]
 nickel = "^0.10"
+
+[dev-dependencies]
+reqwest = "^0.8"
