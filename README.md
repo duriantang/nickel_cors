@@ -1,9 +1,34 @@
-# **nickel_cors** is a middleware for [nickel.rs][]
-
-for more tech detail, see [MDN CORS][]
+# **nickel_cors** is a middleware for [nickel.rs]
 
 [nickel.rs]: https://github.com/nickel-org/nickel.rs "nickel.rs - web application framework for rust"
 [MDN CORS]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS "Cross-Origin Resource Sharing (CORS) - HTTP | MDN"
+
+[language]: https://img.shields.io/badge/language-rust-blue.svg
+[language website]: https://www.rust-lang.org/ "The Rust Programming Language"
+
+[license]: https://img.shields.io/github/license/duriantang/nickel_cors.svg
+[MIT]: https://raw.githubusercontent.com/duriantang/nickel_cors/master/LICENSE "MIT"
+
+[ci]: https://img.shields.io/travis/duriantang/nickel_cors.svg
+[travis-ci]: https://travis-ci.org/duriantang/nickel_cors "Travis CI"
+
+[cov]: https://img.shields.io/codecov/c/github/duriantang/nickel_cors.svg
+[codecov]: https://codecov.io/gh/duriantang/nickel_cors "Codecov.io"
+
+[libs]: https://img.shields.io/librariesio/github/duriantang/nickel_cors.svg
+[libraries.io]: https://libraries.io/github/duriantang/nickel_cors "Libraries.io for GitHub"
+
+[crates version]: https://img.shields.io/crates/v/nickel_cors.svg
+[crates.io]: https://crates.io/crates/nickel_cors "nickel_cors - Cargo: packages for Rust"
+
+[![language]][language website]
+[![license]][MIT]
+[![ci]][travis-ci]
+[![cov]][codecov]
+[![crates version]][crates.io]
+[![libs]][libraries.io]
+
+for more tech detail, see [MDN CORS]
 
 ## Install
 
@@ -48,7 +73,7 @@ This middleware will add these CORS headers to your every response:
 first you need install or switch to **stable** rust version.
 
 ```shell
-$ rustup default stable
+rustup default stable
 ```
 
 runing test use under line, or it will be failed.
