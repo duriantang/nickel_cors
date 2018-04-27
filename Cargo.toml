@@ -10,7 +10,13 @@ repository = "https://github.com/duriantang/nickel_cors"
 readme = "README.md"
 
 [dependencies]
+hyper = "^0.10"
 nickel = "^0.10"
 
 [dev-dependencies]
 reqwest = "^0.8"
+
+[badges]
+
+travis-ci = {repository = "duriantang/nickel_cors", branch = "master" }
+codecov = { repository = "duriantang/nickel_cors", branch = "master", service = "github" }

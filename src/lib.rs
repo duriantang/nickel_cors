@@ -3,10 +3,17 @@ extern crate nickel;
 use std::env;
 use nickel::{MiddlewareResult, Request, Response};
 
+extern crate hyper;
+use hyper::method::Method;
+
 mod defaults;
 use defaults::*;
 
-pub fn enable_cors<'mw>(_: &mut Request, mut resp: Response<'mw>) -> MiddlewareResult<'mw> {
+pub fn enable_cors<'mw>(req: &mut Request, mut resp: Response<'mw>) -> MiddlewareResult<'mw> {
+    if req.origin.method != Method::Options {
+        return resp.next_middleware();
+    }
+
     let allow_credentials =
         env::var(NICKEL_ORS_ALLOW_CREDENTIALS).unwrap_or(String::from(DEFAULT_ALLOW_CREDENTIALS));
     if !allow_credentials.is_empty() && allow_credentials == "true" {
@@ -42,6 +49,7 @@ pub fn enable_cors<'mw>(_: &mut Request, mut resp: Response<'mw>) -> MiddlewareR
 
 #[cfg(test)]
 mod tests {
+    extern crate hyper;
     extern crate nickel;
     extern crate reqwest;
 
@@ -63,6 +71,11 @@ mod tests {
         }));
         let client = Client::new();
         let url: &str = &format!("http://{}", TEST_URL);
+        let normal_resp = client.request(Method::Get, url).send();
+        let normal_resp_ = normal_resp.unwrap();
+        let normal_resp_headers = normal_resp_.headers();
+        assert_eq!(normal_resp_headers.get_raw(ALLOW_HEADERS_HEADER), None);
+
         let resp = client.request(Method::Options, url).send();
         let resp_ = resp.unwrap();
         let resp_headers = resp_.headers();
