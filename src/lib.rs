@@ -122,5 +122,11 @@ mod tests {
             resp_headers.get_raw(ALLOW_CREDENTIALS_HADER).unwrap(),
             "true"
         );
+
+        env::remove_var(NICKEL_ORS_ALLOW_CREDENTIALS);
+        env::remove_var(NICKEL_ORS_ALLOW_HEADERS);
+        env::remove_var(NICKEL_ORS_MAX_AGE);
+        env::remove_var(NICKEL_ORS_ALLOW_METHODS);
+        env::remove_var(NICKEL_ORS_ALLOW_ORIGIN);
     }
 }
