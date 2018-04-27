@@ -5,5 +5,5 @@ sudo: required
 rust:
   - stable
 
-scripts:
+script:
   - cargo test -- --test-threads=1
