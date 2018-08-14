@@ -10,7 +10,7 @@ repository = "https://github.com/duriantang/nickel_cors"
 readme = "README.md"
 
 [dependencies]
-hyper = "^0.10"
+hyper = "^0.12"
 nickel = "^0.10"
 
 [dev-dependencies]
