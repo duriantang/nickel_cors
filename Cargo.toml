@@ -1,6 +1,6 @@
 [package]
 name = "nickel_cors"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["Hui Tang <duriantang@gmail.com>"]
 description = "CORS Middleware for nickel.rs"
 keywords = ["nickel", "middleware", "web"]
@@ -10,7 +10,6 @@ repository = "https://github.com/duriantang/nickel_cors"
 readme = "README.md"
 
 [dependencies]
-hyper = "^0.12"
 nickel = "^0.10"
 
 [dev-dependencies]

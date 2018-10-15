@@ -2,9 +2,7 @@ extern crate nickel;
 
 use std::env;
 use nickel::{MiddlewareResult, Request, Response};
-
-extern crate hyper;
-use hyper::method::Method;
+use nickel::hyper::method::Method;
 
 mod defaults;
 use defaults::*;
@@ -49,7 +47,6 @@ pub fn enable_cors<'mw>(req: &mut Request, mut resp: Response<'mw>) -> Middlewar
 
 #[cfg(test)]
 mod tests {
-    extern crate hyper;
     extern crate nickel;
     extern crate reqwest;
 
