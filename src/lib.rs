@@ -1,8 +1,8 @@
 extern crate nickel;
 
-use std::env;
-use nickel::{MiddlewareResult, Request, Response};
 use nickel::hyper::method::Method;
+use nickel::{MiddlewareResult, Request, Response};
+use std::env;
 
 mod defaults;
 use defaults::*;
@@ -50,12 +50,12 @@ mod tests {
     extern crate nickel;
     extern crate reqwest;
 
-    use nickel::Nickel;
     use self::reqwest::{Client, Method};
-    use std::env;
-    use std::thread;
     use super::defaults::*;
     use super::enable_cors;
+    use nickel::Nickel;
+    use std::env;
+    use std::thread;
 
     #[test]
     fn test_defaults_works() {
@@ -68,31 +68,28 @@ mod tests {
         }));
         let client = Client::new();
         let url: &str = &format!("http://{}", TEST_URL);
-        let normal_resp = client.request(Method::Get, url).send();
+        let normal_resp = client.request(Method::GET, url).send();
         let normal_resp_ = normal_resp.unwrap();
         let normal_resp_headers = normal_resp_.headers();
-        assert_eq!(normal_resp_headers.get_raw(ALLOW_HEADERS_HEADER), None);
+        assert_eq!(normal_resp_headers.get(ALLOW_HEADERS_HEADER), None);
 
-        let resp = client.request(Method::Options, url).send();
+        let resp = client.request(Method::OPTIONS, url).send();
         let resp_ = resp.unwrap();
         let resp_headers = resp_.headers();
         assert_eq!(
-            resp_headers.get_raw(ALLOW_HEADERS_HEADER).unwrap(),
+            resp_headers.get(ALLOW_HEADERS_HEADER).unwrap(),
             DEFAULT_ALLOW_HEADERS
         );
         assert_eq!(
-            resp_headers.get_raw(ALLOW_METHODS_HEADER).unwrap(),
+            resp_headers.get(ALLOW_METHODS_HEADER).unwrap(),
             DEFAULT_ALLOW_METHODS
         );
         assert_eq!(
-            resp_headers.get_raw(ALLOW_ORIGIN_HEADER).unwrap(),
+            resp_headers.get(ALLOW_ORIGIN_HEADER).unwrap(),
             DEFAULT_ALLOW_ORIGIN
         );
-        assert_eq!(
-            resp_headers.get_raw(MAX_AGE_HADER).unwrap(),
-            DEFAULT_MAX_AGE
-        );
-        assert_eq!(resp_headers.get_raw(ALLOW_CREDENTIALS_HADER), None);
+        assert_eq!(resp_headers.get(MAX_AGE_HADER).unwrap(), DEFAULT_MAX_AGE);
+        assert_eq!(resp_headers.get(ALLOW_CREDENTIALS_HADER), None);
     }
 
     #[test]
@@ -112,26 +109,17 @@ mod tests {
         }));
         let client = Client::new();
         let url: &str = &format!("http://{}", TEST_URL);
-        let resp = client.request(Method::Options, url).send();
+        let resp = client.request(Method::OPTIONS, url).send();
         let resp_ = resp.unwrap();
         let resp_headers = resp_.headers();
+        assert_eq!(resp_headers.get(ALLOW_HEADERS_HEADER).unwrap(), "X-POWERBY");
+        assert_eq!(resp_headers.get(ALLOW_METHODS_HEADER).unwrap(), "GET, POST");
         assert_eq!(
-            resp_headers.get_raw(ALLOW_HEADERS_HEADER).unwrap(),
-            "X-POWERBY"
-        );
-        assert_eq!(
-            resp_headers.get_raw(ALLOW_METHODS_HEADER).unwrap(),
-            "GET, POST"
-        );
-        assert_eq!(
-            resp_headers.get_raw(ALLOW_ORIGIN_HEADER).unwrap(),
+            resp_headers.get(ALLOW_ORIGIN_HEADER).unwrap(),
             "https://rust-lang.org"
         );
-        assert_eq!(resp_headers.get_raw(MAX_AGE_HADER).unwrap(), "60");
-        assert_eq!(
-            resp_headers.get_raw(ALLOW_CREDENTIALS_HADER).unwrap(),
-            "true"
-        );
+        assert_eq!(resp_headers.get(MAX_AGE_HADER).unwrap(), "60");
+        assert_eq!(resp_headers.get(ALLOW_CREDENTIALS_HADER).unwrap(), "true");
 
         env::remove_var(NICKEL_ORS_ALLOW_CREDENTIALS);
         env::remove_var(NICKEL_ORS_ALLOW_HEADERS);
