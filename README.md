@@ -29,7 +29,7 @@ for more tech detail, see [MDN CORS]
 Add this line to your `Cargo.toml`
 
 ```toml
-nickel_cors = "0.2.3"
+nickel_cors = "0.3.0"
 ```
 
 ## Usage
